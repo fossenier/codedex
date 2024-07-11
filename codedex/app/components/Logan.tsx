@@ -1,26 +1,11 @@
-import React, { useEffect, useState } from 'react';
+"use client"; // Add this directive at the top
 
-import MyCalendar from '../components/Calendar';
+import React from 'react';
 
-const Index: React.FC = () => {
-  const [events, setEvents] = useState<Array<{ title: string; start: Date; end: Date }>>([]);
-
-  useEffect(() => {
-    setEvents([
-      {
-        title: 'Sample Event',
-        start: new Date(),
-        end: new Date(),
-      },
-    ]);
-  }, []);
-
+const Logan = () => {
   return (
-    <div>
-      <h1>My Calendar</h1>
-      <MyCalendar events={events} />
-    </div>
-  );
-};
+    <div>Logan</div>
+  )
+}
 
-export default Index;
+export default Logan

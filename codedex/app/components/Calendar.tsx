@@ -1,27 +1,27 @@
-import 'react-big-calendar/lib/css/react-big-calendar.css';
+// import 'react-big-calendar/lib/css/react-big-calendar.css';
 
-import moment from 'moment';
-import React, { useEffect, useState } from 'react';
-import { Calendar, momentLocalizer } from 'react-big-calendar';
+// import moment from 'moment';
+// import React from 'react';
+// import { Calendar, momentLocalizer } from 'react-big-calendar/lib';
 
-const localizer = momentLocalizer(moment);
+// const localizer = momentLocalizer(moment);
 
-interface MyCalendarProps {
-  events: Array<{ title: string; start: Date; end: Date }>;
-}
+// interface MyCalendarProps {
+//   events: Array<{ title: string; start: Date; end: Date }>;
+// }
 
-const MyCalendar: React.FC<MyCalendarProps> = ({ events }) => {
-  return (
-    <div>
-      <Calendar
-        localizer={localizer}
-        events={events}
-        startAccessor="start"
-        endAccessor="end"
-        style={{ height: 500 }}
-      />
-    </div>
-  );
-};
+// const MyCalendar: React.FC<MyCalendarProps> = ({ events }) => {
+//   return (
+//     <div>
+//       <Calendar
+//         localizer={localizer}
+//         events={events}
+//         startAccessor="start"
+//         endAccessor="end"
+//         style={{ height: 500 }}
+//       />
+//     </div>
+//   );
+// };
 
-export default MyCalendar;
+// export default MyCalendar;

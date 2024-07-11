@@ -26,16 +26,21 @@
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
+    "@types/react-big-calendar": "^0.33.2",
     "babel-loader": "^8.0.0",
     "eslint": "^8.57.0",
-    "eslint-config-next": "^14.2.5",
-    "@types/react-big-calendar": "^0.33.0"
+    "eslint-config-next": "^14.2.5"
   },
   "babel": {
-    "presets": ["next/babel"]
+    "presets": [
+      "next/babel"
+    ]
   },
   "eslintConfig": {
-    "extends": ["next", "next/core-web-vitals"],
+    "extends": [
+      "next",
+      "next/core-web-vitals"
+    ],
     "parserOptions": {
       "ecmaVersion": 2020,
       "sourceType": "module",
