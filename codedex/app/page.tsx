@@ -1,16 +1,22 @@
-// app/page.tsx
-import MyCalendar from './components/Calendar';
-import Dawson from './components/Dawson';
-import Logan from './components/Logan';
-import Shabab from './components/Shabab';
+"use client";
 
-export default function Home() {
+import React, { useEffect, useState } from 'react';
+
+import Layout from './layout';
+
+const HomePage: React.FC = () => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
-    <div>
-      <Shabab />
-      <Dawson />
-      <Logan />
-      <MyCalendar />
-    </div>
+    <Layout>
+      <h1>Welcome to the Home Page</h1>
+      {mounted && <p>This content only renders on the client side</p>}
+    </Layout>
   );
-}
+};
+
+export default HomePage;
