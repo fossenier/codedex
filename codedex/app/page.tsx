@@ -1,15 +1,22 @@
-import Image from 'next/image';
+"use client";
 
-import Dawson from './components/Dawson';
-import Logan from './components/Logan';
-import Shabab from './components/Shabab';
+import React, { useEffect, useState } from 'react';
 
-export default function Home() {
+import Layout from './components/Layout';
+
+const HomePage: React.FC = () => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
-    <div>
-      <Shabab />
-      <Dawson />
-      <Logan />
-    </div>
-  )
-}
+    <Layout>
+      <h1>Welcome to the Home Page</h1>
+      {mounted && <p>This content only renders on the client side</p>}
+    </Layout>
+  );
+};
+
+export default HomePage;
