@@ -1,7 +1,9 @@
+"use client";
+
 import React from 'react';
 
 import MyCalendar from '../components/Calendar';
-import Layout from '../layout';
+import Layout from '../components/Layout';
 
 const CalendarPage: React.FC = () => {
   return (

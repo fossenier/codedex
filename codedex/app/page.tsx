@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 
-import Layout from './layout';
+import Layout from './components/Layout';
 
 const HomePage: React.FC = () => {
   const [mounted, setMounted] = useState(false);
