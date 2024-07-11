@@ -1,27 +1,42 @@
-// import 'react-big-calendar/lib/css/react-big-calendar.css';
+"use client"; // Add this directive at the top
 
-// import moment from 'moment';
-// import React from 'react';
-// import { Calendar, momentLocalizer } from 'react-big-calendar/lib';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 
-// const localizer = momentLocalizer(moment);
+import moment from 'moment';
+import dynamic from 'next/dynamic';
+import { CalendarProps, momentLocalizer } from 'react-big-calendar';
 
-// interface MyCalendarProps {
-//   events: Array<{ title: string; start: Date; end: Date }>;
-// }
+// Import the calendar component dynamically with no SSR
+const Calendar = dynamic<CalendarProps<any, any>>(
+  () => import('react-big-calendar').then((mod) => mod.Calendar),
+  { ssr: false }
+);
 
-// const MyCalendar: React.FC<MyCalendarProps> = ({ events }) => {
-//   return (
-//     <div>
-//       <Calendar
-//         localizer={localizer}
-//         events={events}
-//         startAccessor="start"
-//         endAccessor="end"
-//         style={{ height: 500 }}
-//       />
-//     </div>
-//   );
-// };
+const localizer = momentLocalizer(moment);
 
-// export default MyCalendar;
+const events = [
+  {
+    title: 'Event 1',
+    start: new Date(2024, 6, 11, 10, 0), // July 11, 2024, 10:00 AM
+    end: new Date(2024, 6, 11, 12, 0), // July 11, 2024, 12:00 PM
+  },
+  {
+    title: 'Event 2',
+    start: new Date(2024, 6, 12, 14, 0), // July 12, 2024, 2:00 PM
+    end: new Date(2024, 6, 12, 16, 0), // July 12, 2024, 4:00 PM
+  },
+];
+
+const MyCalendar = () => (
+  <div style={{ height: '500px' }}>
+    <Calendar
+      localizer={localizer}
+      events={events}
+      startAccessor="start"
+      endAccessor="end"
+      style={{ height: 500 }}
+    />
+  </div>
+);
+
+export default MyCalendar;
