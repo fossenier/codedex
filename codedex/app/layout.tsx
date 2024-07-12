@@ -1,4 +1,5 @@
 import './globals.css'; // Make sure this path is correct
+import NavBar from './NavBar';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -9,7 +10,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <title>My Website</title>
       </head>
       <body>
-        {children}
+        <NavBar />
+        <main>
+          {children}
+        </main>
       </body>
     </html>
   );
