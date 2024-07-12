@@ -1,90 +1,92 @@
-"use client";
-
+// app/components/FoodMenu.tsx
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
-interface ThreeDMenuProps {
-  modelPath: string;
-  backgroundColor: string;
-}
+import { Environment, OrbitControls, Text, useGLTF } from '@react-three/drei';
+import { Canvas, useFrame } from '@react-three/fiber';
 
-const ThreeDMenu: React.FC<ThreeDMenuProps> = ({ modelPath, backgroundColor }) => {
-  const mountRef = useRef<HTMLDivElement>(null);
+const Model = ({ path, position, scale, rotate, pivot, initialRotation, text, textPosition }: { path: string, position: [number, number, number], scale: [number, number, number], rotate?: boolean, pivot: [number, number, number], initialRotation?: [number, number, number], text: string, textPosition?: [number, number, number] }) => {
+  const { scene } = useGLTF(path);
+  const ref = useRef<THREE.Group>(null);
 
   useEffect(() => {
-    const mount = mountRef.current!;
-    
-    // Scene
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(backgroundColor);
+    if (ref.current && initialRotation) {
+      ref.current.rotation.set(initialRotation[0], initialRotation[1], initialRotation[2]);
+    }
+  }, [initialRotation]);
 
-    // Camera
-    const camera = new THREE.PerspectiveCamera(75, mount.clientWidth / mount.clientHeight, 0.1, 1000);
-    camera.position.set(0, 20, 40); // Further back and higher up
+  useFrame(() => {
+    if (ref.current && rotate) {
+      ref.current.rotation.y += 0.01;
+    }
+  });
 
-    // Renderer
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(mount.clientWidth, mount.clientHeight);
-    mount.appendChild(renderer.domElement);
-
-    // Orbit Controls
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.25;
-    controls.enableZoom = false;
-    controls.target.set(0, 0, 0); // Ensure the camera looks at the center
-    controls.update();
-
-    // Load Model
-    const loader = new GLTFLoader();
-    loader.load(modelPath, (gltf) => {
-      const model = gltf.scene;
-      scene.add(model);
-
-      // Center the model
-      const box = new THREE.Box3().setFromObject(model);
-      const center = box.getCenter(new THREE.Vector3());
-      const size = box.getSize(new THREE.Vector3());
-
-      model.position.x -= center.x;
-      model.position.y -= center.y;
-      model.position.z -= center.z;
-
-      // Adjust camera distance based on model size
-      const maxDim = Math.max(size.x, size.y, size.z);
-      const distance = maxDim * 2.5;
-      camera.position.set(0, distance / 2, distance);
-      controls.target.set(center.x, center.y, center.z);
-      controls.update();
-    });
-
-    // Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
-
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(5, 5, 5);
-    scene.add(directionalLight);
-
-    // Animation
-    const animate = () => {
-      requestAnimationFrame(animate);
-      controls.update();
-      renderer.render(scene, camera);
-    };
-
-    animate();
-
-    // Cleanup
-    return () => {
-      mount.removeChild(renderer.domElement);
-      controls.dispose();
-    };
-  }, [modelPath, backgroundColor]);
-
-  return <div ref={mountRef} style={{ width: '100%', height: '100%' }} />;
+  return (
+    <group ref={ref} position={position}>
+      <primitive object={scene} position={pivot} scale={scale} />
+      <Text
+        position={textPosition || [pivot[0], pivot[1] + 2, pivot[2]]} // Use textPosition prop if provided
+        fontSize={0.5}
+        color="black"
+        anchorX="center"
+        anchorY="middle"
+      >
+        {text}
+      </Text>
+    </group>
+  );
 };
 
-export default ThreeDMenu;
+const FoodMenu: React.FC = () => {
+  const boardScale: [number, number, number] = [0.01, 0.01, 0.01];
+  const modelScale: [number, number, number] = [0.1, 0.1, 0.1];
+
+  return (
+    <div className="w-full h-screen">
+      <Canvas 
+        camera={{ position: [0, 2, 5], fov: 75 }} 
+        gl={{ antialias: true }} 
+        onCreated={({ gl }) => {
+          gl.toneMapping = THREE.ACESFilmicToneMapping;
+        }}
+      >
+        {/* Ambient Light for general illumination */}
+        <ambientLight intensity={0.6} />
+
+        {/* Directional Light to simulate sunlight */}
+        <directionalLight 
+          position={[5, 10, 7.5]} 
+          intensity={1.5} 
+          castShadow 
+          shadow-mapSize-width={1024}
+          shadow-mapSize-height={1024}
+          shadow-camera-far={50}
+          shadow-camera-left={-10}
+          shadow-camera-right={10}
+          shadow-camera-top={10}
+          shadow-camera-bottom={-10}
+        />
+
+        {/* Point Lights to add more focused light sources */}
+        <pointLight position={[-5, 5, 5]} intensity={0.5} />
+        <pointLight position={[5, -5, -5]} intensity={0.5} />
+
+        <OrbitControls enableDamping dampingFactor={0.25} enableZoom />
+
+        <Environment preset="city" />
+
+        {/* Load the Monopoly board */}
+        <Model path="/models/monopoly.glb" position={[0, 0, 0]} scale={boardScale} rotate={false} pivot={[0, 0, 0]} text="$0.00" textPosition={[0, 2, 0]} />
+
+        {/* Load the coffee delights */}
+        <Model path="/models/boba_tea_cup.glb" position={[6, 0.5, 4.75]} scale={[0.5, 0.5, 0.5]} rotate={true} pivot={[-1.4, -0.5, 0]} text="$5.50" textPosition={[-1.4, 1.5, 0]} />
+        <Model path="/models/bubble_tea_and_cookies.glb" position={[-6.8, 1.4, -4.75]} scale={[0.8, 0.8, 0.8]} rotate={true} pivot={[-0.9, -0.5, 0.22]} text="$5.50" textPosition={[-0.9, 1.5, 0.22]} />
+        <Model path="/models/cafe_latte_with_art.glb" position={[-1.5, 0.5, 6]} scale={[2.3, 2.3, 2.3]} rotate={true} pivot={[0, -0.5, 0]} text="$5.50" textPosition={[0, 2, 0]} />
+        <Model path="/models/coffee_shop_cup.glb" position={[-6.3, 0.5, 4.7]} scale={[2.3, 2.3, 2.3]} rotate={true} pivot={[0, -0.5, 0]} text="$5.50" textPosition={[0, 2, 0]} />
+        <Model path="/models/desserts.glb" position={[6, 0.5, -3.9]} scale={[1, 1, 1]} rotate={true} pivot={[0, -0.5, 0]} text="$5.50" textPosition={[0, 2, 0]} />
+      </Canvas>
+    </div>
+  );
+};
+
+export default FoodMenu;
