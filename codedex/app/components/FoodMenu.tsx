@@ -2,10 +2,10 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
-import { Environment, OrbitControls, useGLTF } from '@react-three/drei';
+import { Environment, OrbitControls, Text, useGLTF } from '@react-three/drei';
 import { Canvas, useFrame } from '@react-three/fiber';
 
-const Model = ({ path, position, scale, rotate, pivot, initialRotation }: { path: string, position: [number, number, number], scale: [number, number, number], rotate?: boolean, pivot: [number, number, number], initialRotation?: [number, number, number] }) => {
+const Model = ({ path, position, scale, rotate, pivot, initialRotation, text, textPosition }: { path: string, position: [number, number, number], scale: [number, number, number], rotate?: boolean, pivot: [number, number, number], initialRotation?: [number, number, number], text: string, textPosition?: [number, number, number] }) => {
   const { scene } = useGLTF(path);
   const ref = useRef<THREE.Group>(null);
 
@@ -24,6 +24,15 @@ const Model = ({ path, position, scale, rotate, pivot, initialRotation }: { path
   return (
     <group ref={ref} position={position}>
       <primitive object={scene} position={pivot} scale={scale} />
+      <Text
+        position={textPosition || [pivot[0], pivot[1] + 2, pivot[2]]} // Use textPosition prop if provided
+        fontSize={0.5}
+        color="black"
+        anchorX="center"
+        anchorY="middle"
+      >
+        {text}
+      </Text>
     </group>
   );
 };
@@ -70,11 +79,11 @@ const FoodMenu: React.FC = () => {
         <Model path="/models/monopoly.glb" position={[0, 0, 0]} scale={boardScale} rotate={false} pivot={[0, 0, 0]} />
 
         {/* Load the coffee delights */}
-        <Model path="/models/boba_tea_cup.glb" position={[6, 0.5, 4.75]} scale={[0.5, 0.5, 0.5]} rotate={true} pivot={[-1.4, -0.5, 0]} />
-        <Model path="/models/bubble_tea_and_cookies.glb" position={[-6.8, 1.4, -4.75]} scale={[0.8, 0.8, 0.8]} rotate={true} pivot={[-0.9, -0.5, 0.22]} />
-        <Model path="/models/cafe_latte_with_art.glb" position={[-1.5, 0.5, 6]} scale={[2.3, 2.3, 2.3]} rotate={true} pivot={[0, -0.5, 0]} />
-        <Model path="/models/coffee_shop_cup.glb" position={[-6.3, 0.5, 4.7]} scale={[2.3, 2.3, 2.3]} rotate={true} pivot={[0, -0.5, 0]} />
-        <Model path="/models/desserts.glb" position={[6, 0.5, -3.9]} scale={[1, 1, 1]} rotate={true} pivot={[0, -0.5, 0]} />
+        <Model path="/models/boba_tea_cup.glb" position={[6, 0.5, 4.75]} scale={[0.5, 0.5, 0.5]} rotate={true} pivot={[-1.4, -0.5, 0]} text="$5.50" textPosition={[-0.1, 3.5, 0]} />
+        <Model path="/models/bubble_tea_and_cookies.glb" position={[-6.8, 1.4, -4.75]} scale={[0.8, 0.8, 0.8]} rotate={true} pivot={[-0.9, -0.5, 0.22]} text="$5.50" textPosition={[-0.9, 1.5, 0.22]} />
+        <Model path="/models/cafe_latte_with_art.glb" position={[-1.5, 0.5, 6]} scale={[2.3, 2.3, 2.3]} rotate={true} pivot={[0, -0.5, 0]} text="$4.50" textPosition={[0, 1.5, 0]} />
+        <Model path="/models/coffee_shop_cup.glb" position={[-6.3, 0.5, 4.7]} scale={[2.3, 2.3, 2.3]} rotate={true} pivot={[0, -0.5, 0]} text="$1.75" textPosition={[0, 3, 0]} />
+        <Model path="/models/desserts.glb" position={[6, 0.5, -3.9]} scale={[1, 1, 1]} rotate={true} pivot={[0, -0.5, 0]} text="$5.00" textPosition={[0, 1, 0]} />
       </Canvas>
     </div>
   );

@@ -18,11 +18,11 @@ const ThreeDMenu: React.FC<ThreeDMenuProps> = ({ modelPath, backgroundColor }) =
     
     // Scene
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(backgroundColor);  // Set background color
+    scene.background = new THREE.Color(backgroundColor);
 
     // Camera
     const camera = new THREE.PerspectiveCamera(75, mount.clientWidth / mount.clientHeight, 0.1, 1000);
-    camera.position.set(0, 0, 3); // Adjust this distance as needed
+    camera.position.set(0, 20, 40); // Further back and higher up
 
     // Renderer
     const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -34,6 +34,8 @@ const ThreeDMenu: React.FC<ThreeDMenuProps> = ({ modelPath, backgroundColor }) =
     controls.enableDamping = true;
     controls.dampingFactor = 0.25;
     controls.enableZoom = false;
+    controls.target.set(0, 0, 0); // Ensure the camera looks at the center
+    controls.update();
 
     // Load Model
     const loader = new GLTFLoader();
@@ -52,9 +54,9 @@ const ThreeDMenu: React.FC<ThreeDMenuProps> = ({ modelPath, backgroundColor }) =
 
       // Adjust camera distance based on model size
       const maxDim = Math.max(size.x, size.y, size.z);
-      const distance = maxDim * 1.5; // Adjust this factor as needed
-      camera.position.z = distance;
-
+      const distance = maxDim * 2.5;
+      camera.position.set(0, distance / 2, distance);
+      controls.target.set(center.x, center.y, center.z);
       controls.update();
     });
 
