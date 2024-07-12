@@ -8,7 +8,7 @@ const HomePage = () => {
         <Image
           src="/sipnplay.png"
           alt="Sip & Play Image"
-          className="w-96 md:w-128"
+          className="w-96 md:w-1/2 mx-auto"
           width={1024}
           height={1024}
         />
