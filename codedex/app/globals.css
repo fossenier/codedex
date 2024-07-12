@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@tailwind base;       /* Importing Tailwind's base styles */
+@tailwind components; /* Importing Tailwind's component styles */
+@tailwind utilities;  /* Importing Tailwind's utility styles */
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -18,6 +18,6 @@ body {
 
 @layer base {
   h1 {
-    @apply font-extrabold text-2xl mb-3;
+    @apply font-extrabold text-2xl mb-3; /* Applying Tailwind CSS styles to h1 */
   }
 }

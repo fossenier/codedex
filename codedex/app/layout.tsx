@@ -1,6 +1,8 @@
-import './globals.css'; // Make sure this path is correct
-import NavBar from './NavBar';
+import './globals.css'; // Importing global CSS styles
 
+import NavBar from './NavBar'; // Importing the NavBar component
+
+// Root layout component
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -10,9 +12,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <title>My Website</title>
       </head>
       <body>
-        <NavBar />
+        <NavBar /> {/* Navigation Bar */}
         <main>
-          {children}
+          {children} {/* Main content area */}
         </main>
       </body>
     </html>

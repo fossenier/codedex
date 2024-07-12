@@ -1,15 +1,16 @@
-"use client";
+"use client"; // This directive ensures that the component is rendered on the client side
 
-import React from 'react';
+import React from 'react'; // Importing React
 
-import FoodMenu from '../components/FoodMenu';
+import FoodMenu from '../components/FoodMenu'; // Importing the FoodMenu component
 
+// Functional component for the Menu Page
 const MenuPage: React.FC = () => {
   return (
     <>
-      <FoodMenu />
+      <FoodMenu /> {/* Rendering the FoodMenu component */}
     </>
   );
 };
 
-export default MenuPage;
+export default MenuPage; // Exporting the MenuPage component

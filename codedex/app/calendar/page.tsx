@@ -1,19 +1,20 @@
 "use client";
-import { Calendar } from "@/components/ui/calendar"
-import React from "react";
+import React from 'react';
 
+import { Calendar } from '@/components/ui/calendar'; // Importing the Calendar component
 
+// Functional component for the Calendar Page
 const CalendarPage = () => {
-  const [date, setDate] = React.useState<Date | undefined>(new Date())
- 
-return (
-  <Calendar
-    mode="single"
-    selected={date}
-    onSelect={setDate}
-    className="rounded-md border"
-  />
-)
+  const [date, setDate] = React.useState<Date | undefined>(new Date()); // State to keep track of the selected date
+
+  return (
+    <Calendar
+      mode="single"
+      selected={date}
+      onSelect={setDate}
+      className="rounded-md border"
+    />
+  );
 };
 
-export default CalendarPage;
+export default CalendarPage; // Exporting the CalendarPage component

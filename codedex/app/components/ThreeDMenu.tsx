@@ -1,10 +1,11 @@
-// app/components/FoodMenu.tsx
+// app/components/ThreeDMenu.tsx
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
 import { Environment, OrbitControls, Text, useGLTF } from '@react-three/drei';
 import { Canvas, useFrame } from '@react-three/fiber';
 
+// Model component to load and display 3D models with optional rotation and text
 const Model = ({ path, position, scale, rotate, pivot, initialRotation, text, textPosition }: { path: string, position: [number, number, number], scale: [number, number, number], rotate?: boolean, pivot: [number, number, number], initialRotation?: [number, number, number], text: string, textPosition?: [number, number, number] }) => {
   const { scene } = useGLTF(path);
   const ref = useRef<THREE.Group>(null);
@@ -37,7 +38,8 @@ const Model = ({ path, position, scale, rotate, pivot, initialRotation, text, te
   );
 };
 
-const FoodMenu: React.FC = () => {
+// Functional component for the 3D Menu
+const ThreeDMenu: React.FC = () => {
   const boardScale: [number, number, number] = [0.01, 0.01, 0.01];
   const modelScale: [number, number, number] = [0.1, 0.1, 0.1];
 
@@ -89,4 +91,4 @@ const FoodMenu: React.FC = () => {
   );
 };
 
-export default FoodMenu;
+export default ThreeDMenu; // Exporting the ThreeDMenu component
