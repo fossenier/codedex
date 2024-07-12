@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import GridMenu from '../components/GridMenu';
+import FoodMenu from '../components/FoodMenu';
 import Layout from '../components/Layout';
 
 const MenuPage: React.FC = () => {
@@ -10,7 +10,7 @@ const MenuPage: React.FC = () => {
     <Layout>
       <h1>Menu</h1>
       <p>This is the menu page. Add your content here.</p>
-      <GridMenu />
+      <FoodMenu />
     </Layout>
   );
 };

@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-three/drei": "^9.108.3",
+    "@react-three/fiber": "^8.16.8",
     "@radix-ui/react-slot": "^1.1.0",
     "@types/node": "20.14.10",
     "@types/react": "18.3.3",
