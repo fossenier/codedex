@@ -76,7 +76,7 @@ const FoodMenu: React.FC = () => {
         <Environment preset="city" />
 
         {/* Load the Monopoly board */}
-        <Model path="/models/monopoly.glb" position={[0, 0, 0]} scale={boardScale} rotate={false} pivot={[0, 0, 0]} />
+        <Model path="/models/monopoly.glb" position={[0, 0, 0]} scale={boardScale} rotate={false} pivot={[0, 0, 0]} text="" />
 
         {/* Load the coffee delights */}
         <Model path="/models/boba_tea_cup.glb" position={[6, 0.5, 4.75]} scale={[0.5, 0.5, 0.5]} rotate={true} pivot={[-1.4, -0.5, 0]} text="$5.50" textPosition={[-0.1, 3.5, 0]} />
