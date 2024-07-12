@@ -1,17 +1,19 @@
 "use client";
+import { Calendar } from "@/components/ui/calendar"
+import React from "react";
 
-import React from 'react';
 
-import MyCalendar from '../components/Calendar';
-import Layout from '../components/Layout';
-
-const CalendarPage: React.FC = () => {
-  return (
-    <Layout>
-      <h1>Calendar</h1>
-      <MyCalendar />
-    </Layout>
-  );
+const CalendarPage = () => {
+  const [date, setDate] = React.useState<Date | undefined>(new Date())
+ 
+return (
+  <Calendar
+    mode="single"
+    selected={date}
+    onSelect={setDate}
+    className="rounded-md border"
+  />
+)
 };
 
 export default CalendarPage;

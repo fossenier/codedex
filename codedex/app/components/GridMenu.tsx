@@ -21,6 +21,7 @@ const GridMenu: React.FC = () => {
     { modelPath: '/models/coffee_shop_cup.glb' },
     { modelPath: '/models/desserts.glb' },
     { modelPath: '/models/iced_coffee.glb' },
+    { modelPath: '/models/monopoly.glb' },
   ];
 
   return (
