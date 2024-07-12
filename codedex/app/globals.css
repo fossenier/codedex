@@ -1,23 +1,23 @@
-@import '~react-big-calendar/lib/css/react-big-calendar.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 0, 0, 0;
-  --background-end-rgb: 255, 255, 255;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
   }
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background-color: white;
+}
+
+@layer base {
+  h1 {
+    @apply font-extrabold text-2xl mb-3;
+  }
 }
